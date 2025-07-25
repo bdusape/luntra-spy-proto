@@ -1,0 +1,47 @@
+<!-- templates/spy_signal.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPY Trading Signal</title>
+    <!-- ✅ FIX: Add stylesheet link using url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SPY Trading Signal</h1>
+        <!-- ✅ FIX: Update HTML to be populated by JavaScript -->
+        <p><strong>Signal:</strong> <span id="signal">Loading...</span></p>
+        <p><strong>Confidence:</strong> <span id="confidence"></span></p>
+        <p><strong>Strategy:</strong> <span id="strategy"></span></p>
+    </div>
+
+    <!-- ✅ FIX: Add JavaScript to fetch live data from the API -->
+    <script>
+        async function fetchSignal() {
+            try {
+                const response = await fetch("/api/trading-signal/spy");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                document.getElementById("signal").textContent = data.signal;
+                document.getElementById("confidence").textContent = data.confidence;
+                document.getElementById("strategy").textContent = data.strategy;
+
+            } catch (error) {
+                console.error("Failed to fetch trading signal:", error);
+                document.getElementById("signal").textContent = "Error loading signal.";
+            }
+        }
+
+        // Fetch the signal when the page loads
+        fetchSignal();
+
+        // Optional: Refresh the signal every 30 seconds
+        setInterval(fetchSignal, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agent Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, {{ data.username }}</h1>
+        <p>Agent Status: <strong>{{ data.agent_status }}</strong></p>
+        <p>Active Tasks: <strong>{{ data.task_count }}</strong></p>
+        <p>Last Updated: <em>{{ data.last_updated }}</em></p>
+    </div>
+</body>
+</html>
